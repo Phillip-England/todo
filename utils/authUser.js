@@ -7,6 +7,7 @@ import getUrl from './getUrl'
 
 export default async function authUser(context) {
 
+  //EXPIRATION TIME OF OUR SESSIONS
   const tokenSessionAge = 60 * 10
   const refreshSessionAge = 60 * 15
 

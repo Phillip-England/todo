@@ -1,8 +1,12 @@
 .nav{
-  box-shadow: var(--bs-0);
   height:50px;
-  background-color: var(--lightgray);
+  background-color: var(--white);
+  border-bottom:solid var(--lightgray) 1px;
   z-index: var(-z-navbar);
+  position: fixed;
+  top:0px;
+  left:0px;
+  width:100%;
 }
 
 .headerContainer{
@@ -10,7 +14,7 @@
   height: 50px;
   grid-template-columns: 50px auto;
   grid-template-areas: 
-    'bars header'
+    'icon header'
   ;
 }
 
@@ -20,8 +24,8 @@
   justify-self: center;
 }
 
-.bars{
-  grid-area:bars;
+.icon{
+  grid-area:icon;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,4 +35,16 @@
 .navMenu{
   z-index: var(-z-navmenu);
   background-color: var(--lightgray);
+  height: calc(100vh - 50px);
+  width: 66%;
+}
+
+.linkWrapper{
+  height:50px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--f-4);
+  font-family:var(--archivo);
+  color:black;
 }

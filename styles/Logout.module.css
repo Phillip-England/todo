@@ -1,0 +1,30 @@
+.container{
+  height:100vh;
+  display: grid;
+  grid-template-rows: 33% 66%;
+  grid-template-areas: 
+    'header'
+    'loader'
+  ;
+}
+
+.header{
+  color:var(--main-color);
+  font-family:var(--archivo);
+  font-size:var(--f-8);
+  grid-area:header;
+  align-self: center;
+  justify-self: center;
+}
+
+.loader{
+  /* align-self: center; */
+  /* justify-self: center; */
+}
+
+.loaderContainer{
+  grid-area: loader;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
