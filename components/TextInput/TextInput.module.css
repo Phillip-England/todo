@@ -1,0 +1,15 @@
+.input{
+  background-color: var(--lightgray);
+  font-size:var(--f-3);
+  font-family: var(--roboto);
+  padding:var(--p-0);
+  border-bottom: solid var(--gray) 1px;
+  border-top:solid var(--gray) 1px;
+}
+
+.input:focus{
+  outline:none;
+  background-color: var(--gray);
+  border-top:solid var(--main-color) 1px;
+  border-bottom: solid var(--main-color) 1px;
+}

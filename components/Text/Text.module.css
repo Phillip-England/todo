@@ -1,0 +1,6 @@
+.text{
+  font-family: var(--roboto);
+  font-size:var(--f-4);
+  font-weight: 400;
+  color:var(--main-color);
+}

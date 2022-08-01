@@ -1,0 +1,15 @@
+.wrapper{
+  background-color: var(--white);
+  font-family:var(--roboto);
+  box-shadow: var(--bs-0);
+  display:grid;
+}
+
+.header{
+  color:var(--black);
+  padding:var(--p-2) var(--p-0);
+  font-weight:500;
+  font-size:var(--f-5);
+  align-self: center;
+  justify-self: center;
+}

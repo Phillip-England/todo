@@ -1,0 +1,26 @@
+.header{
+  margin-bottom: var(--m-1);
+}
+
+.form{
+  padding:var(--p-component);
+  /* margin-top: var(--m-component); */
+  display:grid;
+  border-bottom:var(--b-component);
+}
+
+.inputs{
+  margin-bottom: var(--m-1);
+}
+
+.submit{
+  margin-bottom:var(--m-1);
+  background-color: var(--main-color);
+}
+
+.already{
+  background-color: var(--green);
+}
+
+
+

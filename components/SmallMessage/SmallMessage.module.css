@@ -1,0 +1,9 @@
+.wrapper{
+  padding:var(--p-component);
+  /* margin-top: var(--m-component); */
+  border-bottom:var(--b-component);
+}
+
+.header{
+  color:var(--black);
+}

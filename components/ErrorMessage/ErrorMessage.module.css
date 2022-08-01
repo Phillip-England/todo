@@ -1,0 +1,5 @@
+.error{
+  font-family: var(--roboto);
+  font-size:var(--f-2);
+  color:red;
+}
