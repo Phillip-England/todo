@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       name = capFirstLetter(name)
       if (stringMin(name, 5) === false) throw 'Project Name must be 5 or more characters'
       if (stringMax(name, 32) === false) throw 'Project Name must be 32 characters or less'
-      if (validator.isWhitelisted(name, projectNameWhitelist) === false) throw 'Project Name may only contain letters, numbers, hyphens, and underscores'
+      if (validator.isWhitelisted(name, projectNameWhitelist) === false) throw 'Project Name contains illegal characters'
 
 
       //PROJECT VISION VALIDATION

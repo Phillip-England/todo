@@ -39,3 +39,43 @@
 .input {
   margin-bottom: var(--m-1);
 }
+
+.projectContainer{
+  padding:var(--p-component);
+  border:var(--b-component);
+}
+
+.projectItem{
+  border:dotted var(--darkgray) 1px;
+  padding:var(--p-1);
+  margin-bottom: var(--m-1);
+}
+
+.projectItemHeader{
+  display:grid;
+  grid-template-areas:
+    'name icon'
+    'vision icon'
+  ;
+}
+
+.projectName{
+  font-family:var(--archivo);
+  font-weight: 400;
+  font-size:var(--f-5);
+  grid-area:name;
+}
+
+.projectVision{
+  font-family: var(--roboto);
+  font-size:var(--f-3);
+  grid-area:vision;
+  color:var(--main-color);
+}
+
+.projectIcon{
+  grid-area:icon;
+  align-self: center;
+  justify-self: end;
+  padding-right: var(--p-1);
+}

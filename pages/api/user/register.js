@@ -7,6 +7,7 @@ import stringMax from "../../../utils/stringMax"
 import stringMin from "../../../utils/stringMin"
 import { passwordWhitelist, usernameWhitelist } from "../../../utils/whitelists"
 import connectMongo from "../../../utils/connectMongo"
+import capFirstLetter from '../../../utils/capFirstLetter'
 import User from '../../../models/userModel'
 
 export default async function handler(req, res) {
@@ -32,6 +33,7 @@ export default async function handler(req, res) {
   
       //USERNAME VALIDATION
       if (username === '') throw 'Username requried'
+      username = capFirstLetter(username)
       const usernameExists = await User.findOne({username:username})
       if (usernameExists) throw 'Username taken'
       username = validator.escape(username)
