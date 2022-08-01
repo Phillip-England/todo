@@ -15,7 +15,7 @@ export default function Navbar() {
     <nav className={`${styles.nav}`}>
 
       <div className={`${styles.headerContainer}`}>
-        <HeaderSm text={'Project Planner'} className={styles.header} />
+        <h1 className={`${styles.header}`}>Project Planner</h1>
         <div className={`${styles.icon}`}>
           {navMenu
             ? <FontAwesomeIcon icon={faX} onClick={()=>{setNavMenu(!navMenu)}} />

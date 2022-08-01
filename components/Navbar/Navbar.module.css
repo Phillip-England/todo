@@ -22,6 +22,9 @@
   grid-area:header;
   align-self: center;
   justify-self: center;
+  font-size: var(--f-5);
+  font-family: var(--roboto);
+  font-weight: 400;
 }
 
 .icon{
@@ -44,7 +47,8 @@
   display:flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--f-4);
-  font-family:var(--archivo);
+  font-size: var(--f-5);
+  font-family:var(--roboto);
+  border-bottom: dotted var(--darkgray) 1px;
   color:black;
 }
