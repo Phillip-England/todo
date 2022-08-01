@@ -70,4 +70,7 @@ a{
   --br-4:24px;
   /*BORDER*/
   --b-component:dotted var(--lightgray) 1px;
+  /*Z-INDEX*/
+  -z-navbar:500;
+  -z-navmenu:499;
 }
