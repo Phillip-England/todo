@@ -27,22 +27,22 @@ export default async function handler(req, res) {
       }
 
       //PROJECT NAME VALIDATION
-      if (name === '') throw 'Project Name required'
+      if (name === '') throw 'Project name required'
       name = validator.trim(name)
       name = validator.escape(name)
       name = capFirstLetter(name)
-      if (stringMin(name, 5) === false) throw 'Project Name must be 5 or more characters'
-      if (stringMax(name, 32) === false) throw 'Project Name must be 32 characters or less'
-      if (validator.isWhitelisted(name, projectNameWhitelist) === false) throw 'Project Name contains illegal characters'
+      if (stringMin(name, 5) === false) throw 'Project name must be 5 or more characters'
+      if (stringMax(name, 32) === false) throw 'Project name must be 32 characters or less'
+      if (validator.isWhitelisted(name, projectNameWhitelist) === false) throw 'Project name contains illegal characters'
 
 
       //PROJECT VISION VALIDATION
-      if (vision === '') throw 'Vision Statement required'
+      if (vision === '') throw 'Vision statement required'
       vision = validator.trim(vision)
       vision = validator.escape(vision)
-      if (stringMin(vision, 5) === false) throw 'Vision Statement must be 5 or more characters'
-      if (stringMax(vision, 64) === false) throw 'Vision Statement must be 64 characters or less'
-      if (validator.isWhitelisted(vision, textAreaWhitelist) === false) throw 'Vision Statement contains illegal characters'
+      if (stringMin(vision, 5) === false) throw 'Vision statement must be 5 or more characters'
+      if (stringMax(vision, 64) === false) throw 'Vision statement must be 64 characters or less'
+      if (validator.isWhitelisted(vision, textAreaWhitelist) === false) throw 'Vision statement contains illegal characters'
 
       //CREATING NEW PROJECT
       const newProject = await Project.create({

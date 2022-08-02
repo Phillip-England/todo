@@ -46,6 +46,7 @@ a{
   --gray:#aaa;
   --darkgray:#888;
   --green:#15725b;
+  --lightgreen:#22a382;
   /*PADDING*/
   --p-component:var(--p-2) var(--p-2) var(--p-2) var(--p-2);
   --p-0:4px;
@@ -64,6 +65,8 @@ a{
   --m-5:24px;
   /*BOXSHADOW*/
   --bs-0:0px 2px 3px var(--lightgray);
+  --bs-1:2px 2px 2px var(--black);
+  --bs-2:1px 1px 2px var(--black);
   /*BORDER RADIUS*/
   --br-0:4px;
   --br-1:8px;

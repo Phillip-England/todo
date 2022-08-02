@@ -1,22 +1,23 @@
 import mongoose, { Schema, model, models} from 'mongoose'
 
-const projectSchema = new Schema({
+const noteSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  name: {
-    type: String,
-  },
-  vision: {
-    type: String,
+  project: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project'
   },
   feature: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Feature'
+  },
+  details: {
+    type: String
   }
 })
 
-const Project = models.Project || model('Project', projectSchema)
+const Note = models.Note || model('Note', NoteSchema)
 
-export default Project
+export default Note
