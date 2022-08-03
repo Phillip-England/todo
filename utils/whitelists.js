@@ -9,9 +9,11 @@ export const passwordSymbols = ['!','@','#','$','%','^','*','-','_','+','+','?']
 export const usernameSymbols = ['-', '_']
 export const projectNameSymbols = ['-', '_', ' ', '\'' ]
 export const textAreaSymbols = [' ','.',',',':',';','\'','"','-','?','!','_','@','#','$','%','(',')']
+export const mainRouteSymbols = ['-','_',':','/']
 
 //WHITELISTS
 export const passwordWhitelist = lowercase.concat(uppercase).concat(numbers).concat(passwordSymbols)
 export const usernameWhitelist = lowercase.concat(uppercase).concat(numbers).concat(usernameSymbols)
 export const projectNameWhitelist = lowercase.concat(uppercase).concat(numbers).concat(projectNameSymbols)
 export const textAreaWhitelist = lowercase.concat(uppercase).concat(numbers).concat(textAreaSymbols)
+export const mainRouteWhitelist = lowercase.concat(uppercase).concat(numbers).concat(mainRouteSymbols)

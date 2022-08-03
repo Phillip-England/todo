@@ -1,6 +1,6 @@
 import mongoose, { Schema, model, models} from 'mongoose'
 
-const featureSchema = new Schema({
+const mainRouteSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -12,12 +12,12 @@ const featureSchema = new Schema({
   name: {
     type: String,
   },
-  notes: {
+  subroutes: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Notes'
+    ref: 'SubRoute'
   }
 })
 
-const Feature = models.Feature || model('Feature', featureSchema)
+const MainRoute = models.MainRoute || model('MainRoute', mainRouteSchema)
 
-export default Feature
+export default MainRoute

@@ -1,6 +1,5 @@
 import getUrl from '../../../utils/getUrl'
 import Project from '../../../models/projectModel'
-import Feature from '../../../models/featureModel'
 import MainLayout from '../../../components/MainLayout/MainLayout'
 import styles from './[id].module.css'
 import { useRouter } from "next/router"
@@ -11,60 +10,60 @@ import Button from '../../../components/Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear, faCaretDown, faCaretUp, faPlus } from '@fortawesome/free-solid-svg-icons'
 import ErorrMessage from '../../../components/ErrorMessage/ErrorMessage'
+import MainRoute from '../../../models/mainRouteModel'
 
 export default function ProjectPage({
   project,
-  features,
+  mainRoutes,
 }) {
 
   //PULLING IN LIBRARIES
   const router = useRouter()
-  const featureForm = useForm()
-  const noteForm = useForm()
+  const routeForm = useForm()
+  const subRouteForm = useForm()
 
   //SETTING UP STATE
-  const [featureFormError, setFeatureFormError] = useState('')
-  const [featureMenu, setFeatureMenu] = useState(false)
-  const [featureItems, setFeatureItems] = useState(features)
-  const [noteFormError, setNoteFormError] = useState('Time to brainstorm!')
+  const [routeFormError, setRouteFormError] = useState('')
+  const [subRouteFormError, setSubRouteFormError] = useState('')
 
-  //WHEN WE POST OUR FEATURE FORM
-  const onFeatureFormSubmit = async (data) => {
+  //TO HELP FORMAT OUR ROUTES AS YOU TYPE
+  const formatRouteInput = (e) => {
+    //ALWAYS OVERWRITE POSITION '0' with '/'
+    if (e.target.value[0] !== '/') {
+      e.target.value = `/${e.target.value}`
+    }
+  }
+
+  //TO HELP FORMAT SUBROUTE INPUTS AS USER TYPES
+
+  //WHEN WE POST OUR MAIN ROUTE FORM
+  const onRouteFormSubmit = async (data) => {
     data.projectId = router.query.id
-    const req = await fetch('/api/feature/create', {
+    const req = await fetch('/api/mainroute/create', {
       method: 'POST',
       body: JSON.stringify(data)
     })
     const res = await req.json()
-    setFeatureFormError(res.error)
+    setRouteFormError(res.error)
     if (res.redirect) {
       router.push(res.redirect)
     }
   }
 
-  //WHEN WE POST OUR NOTE FORM
-  const onNoteFormSubmit = async (data, feature) => {
-    data.featureId = feature
-    const req = await fetch('/api/note/create', {
+  //WHEN WE POST OUR SUB ROUTE FORM
+  const onSubRouteFormSubmit = async (data) => {
+    data.projectId = router.query.id
+    console.log(data)
+    const req = await fetch('/api/subroute/create', {
       method: 'POST',
       body: JSON.stringify(data)
     })
     const res = await req.json()
     console.log(res)
-    setNoteFormError(res.error)
-  }
-
-  //TOGGLING OUR FEATURE MENUS
-  const toggleFeatureMenu = (key) => {
-    let copy = Object.assign([], featureItems)
-    copy.map((feature) => {
-      if (feature._id === key) {
-        feature.active = !feature.active
-      } else {
-        feature.active = false
-      }
-    })
-    setFeatureItems(copy)
+    setSubRouteFormError(res.error)
+    if (res.redirect) {
+      router.push(res.redirect)
+    }
   }
 
   return(
@@ -76,51 +75,34 @@ export default function ProjectPage({
         <FontAwesomeIcon icon={faGear} className={styles.settings} />
       </div>
 
-      <form onSubmit={featureForm.handleSubmit(onFeatureFormSubmit)} className={styles.featureForm}>
-        <h2 className={styles.featureHeader}>Add a Feature</h2>
-        <ErorrMessage message={featureFormError} />
+      <form onSubmit={routeForm.handleSubmit(onRouteFormSubmit)} className={styles.routeForm}>
+        <h2 className={styles.routeHeader}>Add a Main Route</h2>
+        <ErorrMessage message={routeFormError} />
         <TextInput
-          placeholder={'Feature Name'}
-          className={styles.featureInput}
-          register={featureForm.register('name')}
+          placeholder={'Main route name (ex. "/user" or "/invoice/:id")'}
+          className={styles.routeInput}
+          register={routeForm.register('name')}
+          onInput={(e)=>{formatRouteInput(e)}}
         />
         <Button
           text={'Create'}
-          bg={'var(--green)'}
-          className={styles.freatureSubmit}
+          bg={'var(--main-color)'}
+          className={styles.routeSubmit}
         />
       </form>
 
-      <div className={styles.features}>
-        {featureItems.map((feature) =>
-          <div key={feature._id} className={feature.active ? `${styles.featureContainer} ${styles.featureContainerActive}` : styles.featureContainer}>
-            <div className={feature.active ? `${styles.featureHeader} ${styles.featureHeaderActive}` : `${styles.featureHeader}`} onClick={()=>{toggleFeatureMenu(feature._id)}}>
-              <h2 className={feature.active ? `${styles.featureName} ${styles.featureNameActive}` : `${styles.featureName}`}>{feature.name}</h2>
-              {feature.active
-                ? <FontAwesomeIcon icon={faCaretDown} className={`${styles.featureCaret} ${styles.featureCaretActive}`} />
-                : <FontAwesomeIcon icon={faCaretUp} className={styles.featureCaret} />
-              }
-            </div>
-            {feature.active
-              ?
-                <div className={styles.featureHiddenContainer}>
-                  
-                  <form className={styles.noteForm} onSubmit={noteForm.handleSubmit((data)=>{onNoteFormSubmit(data, feature._id)})}>
-                    <input {...noteForm.register('details')} className={styles.noteFormInput} placeholder={'Time to brainstorm!'} />
-                    <button className={styles.noteFormSubmit}>
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                  </form>
-
-                  <ErorrMessage message={noteFormError} />
-
-                </div>
-              : null
-            }
-          </div> 
+      <div className={styles.routeSectionWrapper}>
+        {Object.keys(mainRoutes).map((key) => 
+          <div className={styles.mainRouteWrapper} key={mainRoutes[key]._id}>
+            <form className={styles.subrouteForm} onSubmit={subRouteForm.handleSubmit((data)=>{onSubRouteFormSubmit(data)})}>
+              <h2 className={styles.mainRouteName}>{mainRoutes[key].name}</h2>
+              <input {...subRouteForm.register('name')} placeholder='Subroute name (ex. "/api/user/auth")' className={styles.subrouteInput} />
+              <button className={styles.subrouteSubmit}>+</button>
+            </form>
+          </div>
         )}
-
       </div>
+
 
     </main>
 
@@ -144,24 +126,21 @@ export async function getServerSideProps(context) {
   //OUR URL PARAM
   let projectId = context.params.id
 
-  //GETTING THE CURRENT PROJECT AND ITS FEATURES
+  //GETTING THE CURRENT PROJECT
   let projectData = await Project.find({_id: projectId})
-  let featureData = await Feature.find({project: projectId})
+
+  //GETTING MAIN ROUTES
+  let mainRouteData = await MainRoute.find({project: projectId})
 
   //FORMATTING THE DATA
-  let features = JSON.parse(JSON.stringify(featureData))
   let project = JSON.parse(JSON.stringify(projectData[0]))
-
-  //FEATURES NEEDS ADDTIONAL PARAMETERS FOR STATE
-  features.map((feature) => {
-    feature.active = false
-  })
+  let mainRoutes = JSON.parse(JSON.stringify(mainRouteData))
 
   //SENDING DATA TO CLIENT
   return {
     props: {
       project,
-      features
+      mainRoutes,
     }
   }
   

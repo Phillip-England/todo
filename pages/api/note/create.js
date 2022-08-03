@@ -1,5 +1,5 @@
 import connectMongo from "../../../utils/connectMongo"
-import Feature from '../../../models/featureModel'
+import Feature from '../../../models/routeModel'
 import stringMax from '../../../utils/stringMax'
 import stringMin from '../../../utils/stringMin'
 import validator from "validator"

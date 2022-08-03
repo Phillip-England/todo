@@ -11,10 +11,6 @@ const projectSchema = new Schema({
   vision: {
     type: String,
   },
-  feature: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Feature'
-  }
 })
 
 const Project = models.Project || model('Project', projectSchema)

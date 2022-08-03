@@ -18,7 +18,7 @@
 .vision{
   grid-area:vision;
   font-family: var(--roboto);
-  color:var(--green);
+  color:var(--main-color);
   font-size:var(--f-3);
 }
 
@@ -31,95 +31,69 @@
 }
 
 
-.featureForm{
+.routeForm{
   display: grid;
   padding:var(--p-component);
   border:var(--b-component);
 }
 
-.featureHeader{
+.routeHeader{
   font-family:var(--archivo);
   font-weight:400;
   font-size:var(--f-5);
   margin-bottom:var(--m-0);
 }
 
-.featureInput{
+.routeInput{
   margin-bottom:var(--m-1);
 }
 
-.features{
-  padding:var(--p-component);
+.routeSectionWrapper{
+
 }
 
-.featureContainer{
-  background-color: var(--lightgray);
-  padding:var(--p-1);
-  border-bottom:dotted var(--gray) 1px;
-  margin-bottom:var(--m-1);
-}
-
-.featureContainerActive{
-  background-color: var(--gray);
-  box-shadow: var(--bs-2);
-}
-
-.featureHeader{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.featureHeaderActive{
-}
-
-.featureName{
-  font-family:var(--archivo);
-  font-size:var(--f-3);
-  font-weight:400;
-}
-
-.featureNameActive{
-}
-
-.featureCaret{
-  align-self: center;
-  justify-self: end;
-  padding-right: var(--p-0);
-  font-size:var(--f-2);
-}
-
-.featureCaretActive{
-}
-
-.featureHiddenContainer{
-  display:grid;
+.mainRouteWrapper{
   padding:var(--p-2);
-}
-
-.noteForm{
-  display:grid;
-  grid-template-columns: 87% 13%;
-}
-
-.noteFormInput{
-  font-family: var(--roboto);
-  padding:var(--p-0);
-  font-size:var(--f-2);
   background-color: var(--lightgray);
-  box-shadow: var(--bs-2);
+  margin:var(--m-0);
 }
 
-.noteFormInput:focus{
-  outline:none;
+.subrouteForm{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'mainRouteName .'
+    'subrouteInput subrouteSubmit'
+  ;
+}
+
+.mainRouteName{
+  grid-area:mainRouteName;
+  font-family: var(--archivo);
+  font-size:var(--f-3);
+  font-weight: 400;
+  margin-bottom: var(--m-1);
+}
+
+.subrouteInput{
+  grid-area:subrouteInput;
+  font-family: var(--roboto);
+  font-size:var(--f-2);
+}
+
+.subrouteInput:focus{
   border:none;
+  outline:none;
+  border-bottom:solid var(--main-color) 1px;
 }
 
-.noteFormSubmit{
-  border-radius: 100%;
-  height:30px;
-  width:30px;
+.subrouteSubmit{
+  grid-area:subrouteSubmit;
+  width: fit-content;
   align-self: center;
   justify-self: end;
-  background-color: var(--lightgray);
-  box-shadow: var(--bs-2);
+  margin-left: var(--m-1);
+  background-color: var(--main-color);
+  color:var(--white);
+  border-radius: 5px;
 }

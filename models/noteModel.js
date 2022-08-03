@@ -18,6 +18,6 @@ const noteSchema = new Schema({
   }
 })
 
-const Note = models.Note || model('Note', NoteSchema)
+const Note = models.Note || model('Note', noteSchema)
 
 export default Note
