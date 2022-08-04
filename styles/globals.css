@@ -67,6 +67,7 @@ a{
   --bs-0:0px 2px 3px var(--lightgray);
   --bs-1:2px 2px 2px var(--black);
   --bs-2:1px 1px 2px var(--black);
+  --bs-3:2px 2px 10px var(--lightgray);
   /*BORDER RADIUS*/
   --br-0:4px;
   --br-1:8px;

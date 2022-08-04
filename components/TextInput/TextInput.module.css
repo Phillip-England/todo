@@ -9,7 +9,7 @@
 
 .input:focus{
   outline:none;
-  background-color: var(--gray);
+  /* background-color: var(--gray); */
   border-top:solid var(--main-color) 1px;
   border-bottom: solid var(--main-color) 1px;
 }

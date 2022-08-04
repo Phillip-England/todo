@@ -49,20 +49,26 @@
 }
 
 .routeSectionWrapper{
-
+  border: var(--b-component);
+  padding: var(--p-component);
 }
 
 .mainRouteWrapper{
-  padding:var(--p-2);
-  background-color: var(--lightgray);
-  margin:var(--m-0);
+  /* padding:var(--p-2); */
+  /* background-color: var(--lightgray); */
+  /* margin:var(--m-0); */
+}
+
+.routeWrapper{
+  /* border-bottom: dotted var(--gray) 1px; */
 }
 
 .subrouteForm{
   display:grid;
   grid-template-columns: 1fr auto;
   grid-template-areas:
-    'mainRouteName .'
+    'mainRouteName mainRouteName'
+    'error error'
     'subrouteInput subrouteSubmit'
   ;
 }
@@ -70,8 +76,8 @@
 .mainRouteName{
   grid-area:mainRouteName;
   font-family: var(--archivo);
-  font-size:var(--f-3);
-  font-weight: 400;
+  font-size:var(--f-5);
+  /* font-weight: 400; */
   margin-bottom: var(--m-1);
 }
 
@@ -79,6 +85,7 @@
   grid-area:subrouteInput;
   font-family: var(--roboto);
   font-size:var(--f-2);
+  background-color: var(--lightgray);
 }
 
 .subrouteInput:focus{
@@ -97,3 +104,24 @@
   color:var(--white);
   border-radius: 5px;
 }
+
+.subRouteFormError{
+  grid-area:error;
+}
+
+.subRouteSection{
+}
+
+.subRouteWrapper{
+  /* background-color: var(--lightgray); */
+  margin: var(--m-1) 0;
+  padding:var(--p-0);
+}
+
+.subRouteName{
+  font-family:var(--roboto);
+  font-size:var(--f-4);
+}
+
+
+
