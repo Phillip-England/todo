@@ -50,13 +50,12 @@ export default async function handler(req, res) {
         name: name,
       })
 
-      console.log(newRoute)
-
       //JSON RESPONSE
       res.status(200).json({
         status: 200,
         error: false,
-        redirect: false,
+        redirect: `/app/project/${projectId}`,
+        data: newRoute
       })
 
     } catch (error) {

@@ -9,7 +9,7 @@ import { useState } from 'react'
 import TextInput from '../../../components/TextInput/TextInput'
 import Button from '../../../components/Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear, faCaretDown, faCaretUp, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faGear, faCaretDown, faCaretUp, faPlus, faCircle } from '@fortawesome/free-solid-svg-icons'
 import ErorrMessage from '../../../components/ErrorMessage/ErrorMessage'
 import MainRoute from '../../../models/mainRouteModel'
 
@@ -23,19 +23,10 @@ export default function ProjectPage({
   const router = useRouter()
   const routeForm = useForm()
 
-  //EACH MAINROUTE WILL NEED ITS OWN USEFORM()
-  //EACH MAINROUTE WILL ALSO NEED SUBROUTES
-  for (let x = 0; x < mainRoutes.length; x++) {
-    mainRoutes[x].form = useForm()
-    mainRoutes[x].subRoutes = subRoutes[x]
-  }
-
-  console.log(mainRoutes)
-
   //SETTING UP STATE
   const [routeFormError, setRouteFormError] = useState('')
   const [mainRouteSection, setMainRouteSection] = useState(mainRoutes)
-
+  const [subRouteSection, setSubRouteSection] = useState(subRoutes)
 
   //TO HELP FORMAT OUR ROUTES AS YOU TYPE
   const formatRouteInput = (e) => {
@@ -61,16 +52,15 @@ export default function ProjectPage({
     })
     const res = await req.json()
     setRouteFormError(res.error)
-    if (res.redirect) {
-      router.push(res.redirect)
-    }
+    let copy = Object.assign([], mainRoutes)
+    copy.push(res.data)
+    setMainRouteSection(copy)
   }
 
   //WHEN WE POST OUR SUB ROUTE FORM
   const onSubRouteFormSubmit = async (data, key) => {
     data.projectId = router.query.id
     data.mainRouteId = key
-    console.log(data)
     const req = await fetch('/api/subroute/create', {
       method: 'POST',
       body: JSON.stringify(data)
@@ -83,6 +73,10 @@ export default function ProjectPage({
         mainRouteSection[x].form.setValue('name', '')
       }
     }
+    if (res.redirect) {
+      router.push(res.redirect)
+    }
+    //COULD GET DATA AND REHYDRATE INSTEAD OF RELOAD
   }
 
   //DISPLAYS FORM ERRORS ON PROPER SUBROUTE FORM
@@ -126,22 +120,30 @@ export default function ProjectPage({
       <div className={styles.routeSectionWrapper}>
         {Object.keys(mainRouteSection).map((key) => 
 
-          <div className={styles.routeWrapper}>
-            <div className={styles.mainRouteWrapper} key={mainRouteSection[key]._id}>
-              <form className={styles.subrouteForm} onSubmit={mainRouteSection[key].form.handleSubmit((data) => {onSubRouteFormSubmit(data, mainRouteSection[key]._id)})}>
+          <div className={styles.routeWrapper} key={mainRouteSection[key]._id}>
+            <div className={styles.mainRouteWrapper}>
+              <form className={styles.subrouteForm}>
                 <h2 className={styles.mainRouteName}>{mainRouteSection[key].name}</h2>
                 <ErorrMessage message={mainRouteSection[key].error} className={styles.subRouteFormError} />
-                <input {...mainRouteSection[key].form.register('name')} autoComplete={'off'} spellCheck={'false'} placeholder='Subroute name (ex. "/api/user/auth")' className={styles.subrouteInput} onClick={(e)=>{formatSubRouteInput(e, mainRouteSection[key].name)}} />
+                <input autoComplete={'off'} spellCheck={'false'} placeholder='Subroute name (ex. "/api/user/auth")' className={styles.subrouteInput} onClick={(e)=>{formatSubRouteInput(e, mainRouteSection[key].name)}} />
                 <button className={styles.subrouteSubmit}>+</button>
               </form>
             </div>
 
             <div className={styles.subRouteSection}>
-              {mainRouteSection[key].subRoutes.map((subRoute) =>
-                <div className={styles.subRouteWrapper} key={subRoute._id}>
-                  <p className={styles.subRouteName}>{subRoute.name}</p>
-                </div>
+              {Object.keys(subRouteSection).map((subkey) =>
+                {
+                  if (subRouteSection[subkey].mainRoute === mainRouteSection[key]._id) {
+                    return(
+                      <div className={styles.subRouteWrapper}>
+                        <p className={styles.subRouteName}>{subRouteSection[key].name}</p>
+                      </div>
+                    )
+                  }
+                }
               )}
+                
+
             </div>
 
           </div>
@@ -181,18 +183,12 @@ export async function getServerSideProps(context) {
   let mainRouteData = await MainRoute.find({project: projectId}).sort({name:'ascending'})
 
   //WE WILL EXPORT THIS AS OUR SUBROUTES
-  let subRouteExport = []
-
-  //EACH MAIN ROUTE WILL NEED ITS SUBROUTES
-  for (let x = 0; x < mainRouteData.length; x++) {
-    let associatedSubRoutes = await SubRoute.find({mainRoute: mainRouteData[x]._id}).sort({name:'ascending'})
-    subRouteExport.push(associatedSubRoutes)
-  }
+  let subRouteData = await SubRoute.find({project: projectId})
 
   //FORMATTING THE DATA
   let project = JSON.parse(JSON.stringify(projectData[0]))
   let mainRoutes = JSON.parse(JSON.stringify(mainRouteData))
-  let subRoutes = JSON.parse(JSON.stringify(subRouteExport))
+  let subRoutes = JSON.parse(JSON.stringify(subRouteData))
 
   //SENDING DATA TO CLIENT
   return {

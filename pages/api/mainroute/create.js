@@ -25,7 +25,8 @@ export default async function handler(req, res) {
       const project = await Project.find({_id:projectId})
 
       //MAKING SURE WE DO NOT HAVE A DUPLICATE ROUTE
-      const routeExists = await MainRoute.find({name: name}, {project: projectId})
+      const routeExists = await MainRoute.find({name: name, project: projectId})
+      console.log(routeExists)
       if (routeExists.length > 0) throw 'Cannot have duplicate main routes'
 
       //VALIDATE THE ROUTES NAME
@@ -47,7 +48,8 @@ export default async function handler(req, res) {
       res.status(200).json({
         status: 200,
         error: false,
-        redirect: `/app/project/${projectId}`,
+        redirect: false,
+        data: newMainRoute,
       })
 
     } catch (error) {

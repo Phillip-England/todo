@@ -60,14 +60,17 @@
 }
 
 .routeWrapper{
-  /* border-bottom: dotted var(--gray) 1px; */
+  border:solid var(--darkgray) 1px;
+  margin-bottom: var(--m-2);
 }
 
 .subrouteForm{
   display:grid;
+  background-color: var(--lightgray);
+  padding: var(--p-2);
   grid-template-columns: 1fr auto;
   grid-template-areas:
-    'mainRouteName mainRouteName'
+    'mainRouteName mainRouteNmae'
     'error error'
     'subrouteInput subrouteSubmit'
   ;
@@ -79,13 +82,18 @@
   font-size:var(--f-5);
   /* font-weight: 400; */
   margin-bottom: var(--m-1);
+  padding: var(--p-0) 0;
+}
+
+.subRouteFormIcon{
+
 }
 
 .subrouteInput{
   grid-area:subrouteInput;
   font-family: var(--roboto);
   font-size:var(--f-2);
-  background-color: var(--lightgray);
+  background-color: var(--white);
 }
 
 .subrouteInput:focus{
@@ -120,7 +128,8 @@
 
 .subRouteName{
   font-family:var(--roboto);
-  font-size:var(--f-4);
+  font-size:var(--f-3);
+  padding: 0 var(--p-1);
 }
 
 
