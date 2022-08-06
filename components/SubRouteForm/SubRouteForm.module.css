@@ -1,0 +1,43 @@
+.form{
+  position: fixed;
+  background-color: var(--white);
+  border-radius: var(--br-1);
+  padding: var(--p-3);
+  width: 80%;
+  box-shadow: var(--bs-2);
+  top:20%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--z-form);
+
+}
+
+.header{
+  font-family: var(--archivo);
+  font-size:var(--f-5);
+  color:var(--darkgray);
+  margin-bottom:var(--m-1);
+}
+
+.input{
+  background-color: var(--lightgray);
+  width: 100%;
+  font-family: var(--roboto);
+  font-size:var(--f-3);
+  margin-bottom: var(--m-2);
+}
+
+.buttons{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button{
+  width: fit-content;
+  align-self: center;
+  justify-self: center;
+  padding: var(--p-0) var(--p-3);
+  background-color: var(--main-color);
+  color:white;
+  border-radius: var(--br-0);
+}

@@ -2,27 +2,6 @@
   display:grid;
 }
 
-.headerContainer{
-  display:grid;
-  padding:var(--p-component);
-}
-
-.headerContainer h2 {
-  font-family: var(--archivo);
-  font-size:var(--f-5);
-  font-weight: 400;
-}
-
-.headerContainer p {
-  font-family: var(--roboto);
-  font-size:var(--f-3);
-  color:var(--main-color);
-}
-
-.username{
-
-}
-
 .form{
   display:grid;
   padding:var(--p-2);

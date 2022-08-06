@@ -4,6 +4,6 @@ export default function ErrorMessage({
   message,
 }) {
   return(
-    <> {message ? <p className={styles.error}>{message}</p> : null } </>
+    <> {message ? <p error='active' className={styles.error}>{message}</p> : null } </>
   )
 }

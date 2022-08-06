@@ -42,9 +42,10 @@ a{
   --main-color:#1367d4;
   --black:#111;
   --white:#fff;
+  --lightestgray:#eee;
   --lightgray:#ddd;
   --gray:#aaa;
-  --darkgray:#888;
+  --darkgray:rgb(63, 63, 63);
   --green:#15725b;
   --lightgreen:#22a382;
   /*PADDING*/
@@ -77,6 +78,21 @@ a{
   /*BORDER*/
   --b-component:dotted var(--lightgray) 1px;
   /*Z-INDEX*/
-  -z-navbar:500;
-  -z-navmenu:499;
+  --z-navbar:501;
+  --z-navmenu:499;
+  --z-navHeader:500;
+  --z-overlay:502;
+  --z-form:503;
+}
+
+
+/*ANIMATIONS*/
+
+@keyframes fade {
+  from{
+    opacity: 100%;
+  }
+  to{
+    opacity: 0%;
+  }
 }

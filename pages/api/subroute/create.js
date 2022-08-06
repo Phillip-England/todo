@@ -17,6 +17,7 @@ export default async function handler(req, res) {
 
       //GETTING DATA
       let data = JSON.parse(req.body)
+
       let { name, projectId, mainRouteId } = data
 
       //GETTING THE ASSOCIATED PROJECT
@@ -41,6 +42,7 @@ export default async function handler(req, res) {
       if (stringMin(name, (mainRoute[0].name.length + 2)) === false) throw `Format: ${mainRoute[0].name}/<subroute>`
       if (stringMax(name, 64) === false) throw 'Okay, calm down now.'
       if (validator.isWhitelisted(name, mainRouteWhitelist) === false) throw 'Subroute contains illegal characters' 
+      // if (stringRepeat(name, '/', 1) === false) throw 'Cannot have repeating "/" characters'
 
       //STORING SUBROUTE IN DB
       const newRoute = await SubRoute.create({
@@ -50,11 +52,10 @@ export default async function handler(req, res) {
         name: name,
       })
 
+
       //JSON RESPONSE
       res.status(200).json({
         status: 200,
-        error: false,
-        redirect: `/app/project/${projectId}`,
         data: newRoute
       })
 

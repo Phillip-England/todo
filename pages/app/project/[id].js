@@ -1,17 +1,28 @@
-import getUrl from '../../../utils/getUrl'
-import Project from '../../../models/projectModel'
-import SubRoute from '../../../models/subRouteModel'
-import MainLayout from '../../../components/MainLayout/MainLayout'
-import styles from './[id].module.css'
 import { useRouter } from "next/router"
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGear, faCaretDown, faCaretUp, faPlus, faCircle, faArrowAltCircleRight, } from '@fortawesome/free-solid-svg-icons'
+import Link from "next/link"
+
+import Project from '../../../models/projectModel'
+import SubRoute from '../../../models/subRouteModel'
+import MainRoute from '../../../models/mainRouteModel'
+
+import getFormValues from '../../../utils/getFormChildren'
+import formError from '../../../utils/formError'
+import getUrl from '../../../utils/getUrl'
+
+import styles from './[id].module.css'
+import MainLayout from '../../../components/MainLayout/MainLayout'
 import TextInput from '../../../components/TextInput/TextInput'
 import Button from '../../../components/Button/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear, faCaretDown, faCaretUp, faPlus, faCircle } from '@fortawesome/free-solid-svg-icons'
 import ErorrMessage from '../../../components/ErrorMessage/ErrorMessage'
-import MainRoute from '../../../models/mainRouteModel'
+
+//ISSUES
+// - need to sort new main routes as they come in. will need to sort by .name parameter
+// - need the subroute forms to error on repeated // characters
+
 
 export default function ProjectPage({
   project,
@@ -28,6 +39,7 @@ export default function ProjectPage({
   const [mainRouteSection, setMainRouteSection] = useState(mainRoutes)
   const [subRouteSection, setSubRouteSection] = useState(subRoutes)
 
+
   //TO HELP FORMAT OUR ROUTES AS YOU TYPE
   const formatRouteInput = (e) => {
     //ALWAYS OVERWRITE POSITION '0' with '/'
@@ -38,6 +50,7 @@ export default function ProjectPage({
 
   //TO HELP FORMAT SUBROUTE INPUTS AS USER TYPES
   const formatSubRouteInput = (e, mainRouteName) => {
+    //FORMATTING
     if ( (e.target.value.length-1) < mainRouteName.length) {
       e.target.value = `${mainRouteName}/`
     }
@@ -52,31 +65,32 @@ export default function ProjectPage({
     })
     const res = await req.json()
     setRouteFormError(res.error)
-    let copy = Object.assign([], mainRoutes)
-    copy.push(res.data)
-    setMainRouteSection(copy)
+    if (res.error === undefined) {
+      let copy = Object.assign([], mainRouteSection)
+      copy.push(res.data)
+      setMainRouteSection(copy)
+    }
   }
 
-  //WHEN WE POST OUR SUB ROUTE FORM
-  const onSubRouteFormSubmit = async (data, key) => {
-    data.projectId = router.query.id
-    data.mainRouteId = key
-    const req = await fetch('/api/subroute/create', {
+  //WHEN WE POST OUR SUB ROUTE FORMS
+  const onSubRouteFormSubmit = async (e, mainRoute) => {
+    e.preventDefault()
+    let data = getFormValues(e.target)
+    let req = await fetch('/api/subroute/create', {
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        name: data[0].value,
+        projectId: mainRoute.project,
+        mainRouteId: mainRoute._id,
+      }),
     })
-    const res = await req.json()
-    getSubRouteFormError(res.error, data.mainRouteId)
-    //GET THE USE FORM FOR THE CURRENT SUBROUTE
-    for (let x = 0; x < mainRouteSection.length; x++) {
-      if (mainRouteSection[x]._id === data.mainRouteId) {
-        mainRouteSection[x].form.setValue('name', '')
-      }
+    let res = await req.json()
+    formError(e.target, res.error)
+    if (res.error === undefined) {
+      let copy = Object.assign([], subRouteSection)
+      copy.push(res.data)
+      setSubRouteSection(copy)
     }
-    if (res.redirect) {
-      router.push(res.redirect)
-    }
-    //COULD GET DATA AND REHYDRATE INSTEAD OF RELOAD
   }
 
   //DISPLAYS FORM ERRORS ON PROPER SUBROUTE FORM
@@ -98,7 +112,6 @@ export default function ProjectPage({
       <div className={styles.headerContainer}>
         <h2 className={styles.name}>{project.name}</h2>
         <p className={styles.vision}>{project.vision}</p>
-        <FontAwesomeIcon icon={faGear} className={styles.settings} />
       </div>
 
       <form onSubmit={routeForm.handleSubmit(onRouteFormSubmit)} className={styles.routeForm}>
@@ -121,34 +134,27 @@ export default function ProjectPage({
         {Object.keys(mainRouteSection).map((key) => 
 
           <div className={styles.routeWrapper} key={mainRouteSection[key]._id}>
-            <div className={styles.mainRouteWrapper}>
-              <form className={styles.subrouteForm}>
-                <h2 className={styles.mainRouteName}>{mainRouteSection[key].name}</h2>
-                <ErorrMessage message={mainRouteSection[key].error} className={styles.subRouteFormError} />
-                <input autoComplete={'off'} spellCheck={'false'} placeholder='Subroute name (ex. "/api/user/auth")' className={styles.subrouteInput} onClick={(e)=>{formatSubRouteInput(e, mainRouteSection[key].name)}} />
-                <button className={styles.subrouteSubmit}>+</button>
-              </form>
+            <div className={styles.mainRouteHeader}>
+              <h2 className={styles.mainRouteName}>{mainRouteSection[key].name}</h2>
+              <Link href={`/app/form/createSubRoute/${mainRouteSection[key]._id}`}>
+                <FontAwesomeIcon icon={faPlus} className={styles.mainRoutePlus} />
+              </Link>
             </div>
-
             <div className={styles.subRouteSection}>
               {Object.keys(subRouteSection).map((subkey) =>
                 {
                   if (subRouteSection[subkey].mainRoute === mainRouteSection[key]._id) {
                     return(
-                      <div className={styles.subRouteWrapper}>
-                        <p className={styles.subRouteName}>{subRouteSection[key].name}</p>
+                      <div className={styles.subRouteWrapper} key={subRouteSection[subkey]._id}>
+                        <p className={styles.subRouteName}>{subRouteSection[subkey].name}</p>
+                        <FontAwesomeIcon icon={faArrowAltCircleRight} className={styles.arrowIcon} />
                       </div>
                     )
                   }
                 }
               )}
-                
-
             </div>
-
           </div>
-
-          
         )}
       </div>
 
@@ -163,7 +169,8 @@ export default function ProjectPage({
 ProjectPage.getLayout = function getLayout(page) {
   return (
     <MainLayout 
-      page={page} 
+      page={page}
+      navText={'Main Routes'}
     />
   )
 }

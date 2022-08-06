@@ -3,16 +3,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 import styles from '../../styles/App.module.css'
-import getUrl from '../../utils/getUrl'
 import authUser from '../../utils/authUser'
 import Project from '../../models/projectModel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 import MainLayout from '../../components/MainLayout/MainLayout'
-import Header from '../../components/Header/Header'
-import Text from '../../components/Text/Text'
-import SmallMessage from '../../components/SmallMessage/SmallMessage'
 import TextInput from '../../components/TextInput/TextInput'
 import Button from '../../components/Button/Button'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
@@ -38,11 +34,6 @@ export default function Home({user, projects}) {
 
   return(
     <main styles={styles.container}>
-
-      <div className={`${styles.headerContainer}`}>
-        <h2>{user.username}</h2>
-        <p>Welcome back, staying productive?</p>
-      </div>
 
       <form onSubmit={projectForm.handleSubmit(onCreateProject)} className={styles.form}>
         <h2>Create New Project</h2>
@@ -73,7 +64,8 @@ export default function Home({user, projects}) {
 Home.getLayout = function getLayout(page) {
   return (
     <MainLayout 
-      page={page} 
+      page={page}
+      navText={'Welcome Home!'}
     />
   )
 }

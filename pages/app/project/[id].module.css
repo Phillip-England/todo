@@ -22,15 +22,6 @@
   font-size:var(--f-3);
 }
 
-.settings{
-  grid-area: settings;
-  align-self: center;
-  justify-self: end;
-  padding-right: var(--p-3);
-  font-size:var(--f-3);
-}
-
-
 .routeForm{
   display: grid;
   padding:var(--p-component);
@@ -60,17 +51,17 @@
 }
 
 .routeWrapper{
-  border:solid var(--darkgray) 1px;
+  border:solid var(--gray) 1px;
   margin-bottom: var(--m-2);
 }
 
-.subrouteForm{
+.mainRouteHeader{
   display:grid;
   background-color: var(--lightgray);
   padding: var(--p-2);
   grid-template-columns: 1fr auto;
   grid-template-areas:
-    'mainRouteName mainRouteNmae'
+    'mainRouteName settings'
     'error error'
     'subrouteInput subrouteSubmit'
   ;
@@ -81,55 +72,48 @@
   font-family: var(--archivo);
   font-size:var(--f-5);
   /* font-weight: 400; */
-  margin-bottom: var(--m-1);
+  color:var(--darkgray);
   padding: var(--p-0) 0;
 }
 
-.subRouteFormIcon{
-
-}
-
-.subrouteInput{
-  grid-area:subrouteInput;
-  font-family: var(--roboto);
-  font-size:var(--f-2);
-  background-color: var(--white);
-}
-
-.subrouteInput:focus{
-  border:none;
-  outline:none;
-  border-bottom:solid var(--main-color) 1px;
-}
-
-.subrouteSubmit{
-  grid-area:subrouteSubmit;
-  width: fit-content;
-  align-self: center;
-  justify-self: end;
-  margin-left: var(--m-1);
-  background-color: var(--main-color);
+.mainRoutePlus{
+  grid-area:settings;
   color:var(--white);
-  border-radius: 5px;
-}
-
-.subRouteFormError{
-  grid-area:error;
+  padding:var(--p-1);
+  align-self: center;
+  justify-self: center;
+  font-size:var(--f-2);
+  background-color: var(--main-color);
+  border-radius: 100%;
 }
 
 .subRouteSection{
+  
 }
 
 .subRouteWrapper{
-  /* background-color: var(--lightgray); */
+  background-color: var(--lightestgray);
   margin: var(--m-1) 0;
-  padding:var(--p-0);
+  padding:var(--p-2);
+  display:grid;
+  grid-template-areas:
+    'subroute icon'
+  ;
 }
 
 .subRouteName{
   font-family:var(--roboto);
   font-size:var(--f-3);
   padding: 0 var(--p-1);
+  grid-area:subroute;
+}
+
+.arrowIcon{
+  grid-area:icon;
+  align-self: center;
+  justify-self: flex-end;
+  padding-right:var(--p-1);
+  color:var(--gray);
 }
 
 

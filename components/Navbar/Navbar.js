@@ -1,13 +1,15 @@
-import styles from './Navbar.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
+import { faX, faBars, faHome, faDoorOpen } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import Link from 'next/link'
 
-import HeaderSm from '../HeaderSm/HeaderSm'
-import Text from '../Text/Text'
+import styles from './Navbar.module.css'
 
-export default function Navbar() {
+
+
+export default function Navbar({
+  navText,
+}) {
 
   const [navMenu, setNavMenu] = useState(false)
 
@@ -15,25 +17,34 @@ export default function Navbar() {
     <nav className={`${styles.nav}`}>
 
       <div className={`${styles.headerContainer}`}>
-        <h1 className={`${styles.header}`}>Project Planner</h1>
+        <h1 className={`${styles.header}`}>{navText}</h1>
         <div className={`${styles.icon}`}>
           {navMenu
-            ? <FontAwesomeIcon icon={faX} onClick={()=>{setNavMenu(!navMenu)}} />
-            : <FontAwesomeIcon icon={faBars} onClick={()=>{setNavMenu(!navMenu)}} />
+            ? <FontAwesomeIcon icon={faX} onClick={()=>{setNavMenu(!navMenu)}}/>
+            : <FontAwesomeIcon icon={faBars} onClick={()=>{setNavMenu(!navMenu)}}/>
           }
         </div>
       </div>
 
       {navMenu 
-        ? 
-          <div className={`${styles.navMenu}`}>
-            <ul>
-              <li className={`${styles.linkWrapper}`}> 
-                <Link href='/app/logout'>Logout</Link> 
-              </li>
-            </ul>
-          </div>
-        : null}
+        ?
+          <ul className={styles.navMenuWrapper}>
+            <div className={styles.navMenuSpacer}></div>
+            <li className={styles.navItemWrapper}>
+              <Link href={'/app/home'}>
+                <FontAwesomeIcon icon={faHome} onClick={()=>{setNavMenu(!navMenu)}} />
+              </Link>
+            </li>
+            <li className={styles.navItemWrapper}>
+              <Link href={'/app/logout'}>
+                <FontAwesomeIcon icon={faDoorOpen} onClick={()=>{setNavMenu(!navMenu)}} />
+              </Link>
+            </li>
+          </ul>
+        : null
+      }
+
+
 
     </nav>
   )

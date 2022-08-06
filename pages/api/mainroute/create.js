@@ -47,8 +47,6 @@ export default async function handler(req, res) {
       //JSON RESPONSE
       res.status(200).json({
         status: 200,
-        error: false,
-        redirect: false,
         data: newMainRoute,
       })
 
