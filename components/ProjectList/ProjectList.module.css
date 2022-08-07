@@ -1,0 +1,31 @@
+.wrapper{
+  padding:var(--p-component);
+}
+
+.wrapper li {
+  display:grid;
+  border:solid var(--gray) 1px;
+  padding:var(--p-2);
+  border-radius: var(--br-1);
+  margin-bottom:var(--m-2);
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 
+    'header link'
+    'text link'
+  ;
+}
+
+.header{
+  grid-area:header;
+}
+
+.text{
+  grid-area:text;
+}
+
+.link{
+  grid-area:link;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -43,11 +43,14 @@ export default async function handler(req, res) {
         name: name,
       })
 
+      //GETTING ALL MAIN ROUTES
+      const mainRoutes = await MainRoute.find({project: project[0]._id}).sort({name:'ascending'})
+
 
       //JSON RESPONSE
       res.status(200).json({
         status: 200,
-        data: newMainRoute,
+        data: mainRoutes,
       })
 
     } catch (error) {

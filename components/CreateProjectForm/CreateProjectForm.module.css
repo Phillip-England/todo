@@ -1,0 +1,13 @@
+.form{
+  display:grid;
+  padding:var(--p-2);
+  border:var(--b-component);
+}
+
+.header {
+  margin-bottom:var(--m-1);
+}
+
+.input {
+  margin-bottom: var(--m-1);
+}

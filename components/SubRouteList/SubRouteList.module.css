@@ -1,0 +1,13 @@
+.wrapper{
+  padding:var(--p-component);
+  border:var(--b-component);
+  display:grid;
+  list-style: none;
+}
+
+.wrapper li {
+  border:solid var(--gray) 1px;
+  margin-bottom:var(--m-1);
+  padding:var(--p-3);
+  border-radius: var(--br-1);
+}

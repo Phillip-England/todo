@@ -1,6 +1,6 @@
 import mongoose, { Schema, model, models} from 'mongoose'
 
-const subRouteSchema = new Schema({
+export const subRouteSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

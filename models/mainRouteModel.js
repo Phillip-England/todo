@@ -1,5 +1,15 @@
 import mongoose, { Schema, model, models} from 'mongoose'
 
+const subRouteSchema = new Schema({
+  name: {
+    type: String
+  },
+  mainRoute: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'MainRoute'
+  }
+})
+
 const mainRouteSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -12,9 +22,8 @@ const mainRouteSchema = new Schema({
   name: {
     type: String,
   },
-  subroutes: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'SubRoute'
+  subRoutes: {
+    type: [subRouteSchema],
   }
 })
 

@@ -5,11 +5,14 @@ export default function TextInput({
   className,
   register,
   onInput,
+  onClick,
+  onBlur,
+  spellCheck,
 }) {
 
 
 
   return(
-    <input placeholder={placeholder} className={`${styles.input} ${className}`} {...register} onInput={onInput} />
+    <input spellCheck={spellCheck} onBlur={onBlur} onClick={onClick} placeholder={placeholder} className={`${styles.input} ${className}`} {...register} onInput={onInput} />
   )
 }

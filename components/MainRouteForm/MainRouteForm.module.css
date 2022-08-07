@@ -1,7 +1,7 @@
 .form{
+  display:grid;
   padding: var(--p-component);
   border: var(--b-component);
-  display:grid;
 }
 
 .header{
@@ -10,4 +10,8 @@
 
 .input{
   margin-bottom:var(--m-1);
+}
+
+.submit{
+
 }
