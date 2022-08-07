@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 
 import Project from '../../../models/projectModel'
 import MainRoute from '../../../models/mainRouteModel'
@@ -8,17 +9,29 @@ import MainLayout from '../../../components/MainLayout/MainLayout'
 import HeaderAndSubText from "../../../components/HeaderAndSubText/HeaderAndSubText"
 import MainRouteForm from "../../../components/MainRouteForm/MainRouteForm"
 import MainRouteList from "../../../components/MainRouteList/MainRouteList"
+import Overlay from '../../../components/Overlay/Overlay'
+import UpdateProjectForm from '../../../components/UpdateProjectForm/UpdateProjectForm'
 
 export default function ProjectPage({
   projectData,
   mainRoutesData
 }) {
 
+    const [project, setProject] = useState(projectData)
     const [mainRoutes, setMainRoutes] = useState(mainRoutesData)
+    const [overLay, setOverlay] = useState(false)
+    const [updateProjectForm, setUpdateProjectForm] = useState(false)
+
+    const toggleUpdateProjectForm = () => {
+      setOverlay(!overLay)
+      setUpdateProjectForm(!updateProjectForm)
+    }
 
   return(
     <main>
-      <HeaderAndSubText headerText={projectData.name} subText={projectData.vision} />
+      <Overlay active={overLay} />
+      <UpdateProjectForm active={updateProjectForm} project={project} setProject={setProject} toggleUpdateProjectForm={toggleUpdateProjectForm} onCancel={()=>{toggleUpdateProjectForm()}} />
+      <HeaderAndSubText headerText={project.name} subText={project.vision} icon={faPen} onClick={()=>{toggleUpdateProjectForm()}} />
       <MainRouteForm mainRoutes={mainRoutes} setMainRoutes={setMainRoutes} />
       <MainRouteList mainRoutes={mainRoutes} />
     </main>

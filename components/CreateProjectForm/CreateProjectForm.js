@@ -4,17 +4,18 @@ import TextInput from '../TextInput/TextInput'
 import Button from '../Button/Button'
 import H2 from '../H2/H2'
 
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 
+import sortArrayOfObjects from '../../utils/sortArrayOfObjects'
+
 export default function CreateProjectForm({
-  user
+  user,
+  setProjects
 }) {
 
   const [projectFormError, setProjectFormError] = useState('')
   const projectForm = useForm()
-  const router = useRouter()
 
   const onCreateProject = async (data) => {
     data.user = user._id
@@ -23,8 +24,11 @@ export default function CreateProjectForm({
       body: JSON.stringify(data)
     })
     let res = await req.json()
-    setProjectFormError(res.error)
-    router.push('/app/home')
+    if (res.error) {
+      setProjectFormError(res.error)
+    } else {
+      setProjects(sortArrayOfObjects(res.data, 'name'))
+    }
   }
 
   return (

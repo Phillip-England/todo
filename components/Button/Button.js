@@ -5,9 +5,10 @@ export default function Button({
   text,
   type,
   bg,
+  onClick,
 }) {
 
   return(
-    <button className={`${styles.button} ${className}`} type={type} style={{backgroundColor:bg,}}>{text}</button>
+    <button onClick={onClick} className={`${styles.button} ${className}`} type={type} style={{backgroundColor:bg,}}>{text}</button>
   )
 }

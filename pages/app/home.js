@@ -5,14 +5,18 @@ import Project from '../../models/projectModel'
 import MainLayout from '../../components/MainLayout/MainLayout'
 import CreateProjectForm from '../../components/CreateProjectForm/CreateProjectForm'
 import ProjectList from '../../components/ProjectList/ProjectList'
+import { useState } from 'react'
 
 export default function Home({
   user, 
-  projects
+  projectsData
 }) {
+
+  const [projects, setProjects] = useState(projectsData)
+
   return(
     <main styles={styles.container}>
-      <CreateProjectForm user={user} />
+      <CreateProjectForm user={user} setProjects={setProjects} />
       <ProjectList projects={projects} />
     </main>
   )
@@ -38,13 +42,13 @@ export async function getServerSideProps(context) {
   const user = await authUser(context)
 
   //GETTING ALL OUR USERS PROJECTS
-  const projectData = await Project.find({user: user._id})
-  const projects = JSON.parse(JSON.stringify(projectData))
+  const projectsFromMongo = await Project.find({user: user._id}).sort({'name': 'ascending'})
+  const projectsData = JSON.parse(JSON.stringify(projectsFromMongo))
   
   return {
     props: {
       user,
-      projects
+      projectsData
     }
   }
 }

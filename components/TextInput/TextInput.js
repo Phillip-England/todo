@@ -8,11 +8,12 @@ export default function TextInput({
   onClick,
   onBlur,
   spellCheck,
+  defaultValue,
 }) {
 
 
 
   return(
-    <input spellCheck={spellCheck} onBlur={onBlur} onClick={onClick} placeholder={placeholder} className={`${styles.input} ${className}`} {...register} onInput={onInput} />
+    <input defaultValue={defaultValue} spellCheck={spellCheck} onBlur={onBlur} onClick={onClick} placeholder={placeholder} className={`${styles.input} ${className}`} {...register} onInput={onInput} />
   )
 }

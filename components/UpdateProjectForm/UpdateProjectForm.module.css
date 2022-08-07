@@ -1,0 +1,50 @@
+.form{
+  position:fixed;
+  top:10%;
+  left:50%;
+  transform: translate(-50%, 0);
+  z-index: var(--z-form);
+  background-color: var(--white);
+  display: grid;
+  width: 85%;
+  border-radius: var(--br-1);
+  padding:var(--p-3);
+  grid-template-areas:
+    'header header'
+    'error error'
+    'nameInput nameInput'
+    'visionInput visionInput'
+    'submit cancel'
+  ;
+}
+
+.header{
+  grid-area:header;
+  margin-bottom:var(--m-2);
+}
+
+.error{
+  grid-area:error;
+}
+
+.nameInput{
+  grid-area:nameInput;
+  margin-bottom:var(--m-1);
+}
+
+.visionInput{
+  grid-area:visionInput;
+  margin-bottom:var(--m-2);
+}
+
+.submit{
+  grid-area:submit;
+  margin-right: var(--m-2);
+  margin-left: var(--m-2);
+}
+
+.cancel{
+  grid-area:cancel;
+  margin-left: var(--m-2);
+  margin-right: var(--m-2);
+}

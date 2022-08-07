@@ -3,68 +3,44 @@ import validator from 'validator'
 import Project from '../../../models/projectModel'
 import User from '../../../models/userModel'
 import connectMongo from '../../../utils/connectMongo'
-import stringMax from '../../../utils/stringMax'
-import stringMin from '../../../utils/stringMin'
-import capFirstLetter from '../../../utils/capFirstLetter'
-import { projectNameWhitelist, textAreaWhitelist } from '../../../utils/whitelists'
+import validateProject from '../../../utils/validateProject'
 
 export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     try {
 
-      //DB CONNECTION
       await connectMongo()
   
-      //GETTING DATA
       let data = JSON.parse(req.body)
       let {user, name, vision} = data
 
-      //GETTING THE USER FROM THE REQUEST
       const activeUser = await User.findById(user)
       if (!activeUser) {
         throw 'No user logged in'
       }
 
-      //PROJECT NAME VALIDATION
-      if (name === '') throw 'Project name required'
-      name = validator.trim(name)
-      name = validator.escape(name)
-      name = capFirstLetter(name)
-      if (stringMin(name, 5) === false) throw 'Project name must be 5 or more characters'
-      if (stringMax(name, 32) === false) throw 'Project name must be 32 characters or less'
-      if (validator.isWhitelisted(name, projectNameWhitelist) === false) throw 'Project name contains illegal characters'
+      let validation = validateProject(name, vision)
+      if (validation.error) throw validation.message
 
 
-      //PROJECT VISION VALIDATION
-      if (vision === '') throw 'Vision statement required'
-      vision = validator.trim(vision)
-      vision = validator.escape(vision)
-      if (stringMin(vision, 5) === false) throw 'Vision statement must be 5 or more characters'
-      if (stringMax(vision, 64) === false) throw 'Vision statement must be 64 characters or less'
-      if (validator.isWhitelisted(vision, textAreaWhitelist) === false) throw 'Vision statement contains illegal characters'
-
-      //CREATING NEW PROJECT
       const newProject = await Project.create({
-        user: activeUser,
+        user: activeUser._id,
         name: name,
         vision: vision
       })
 
-      //JSON RESPONSE
+      const allProjects = await Project.find({user: activeUser._id})
+
       res.status(200).json({
-        status: 200,
-        error: false,
-        redirect: false,
+        data: allProjects
       })
 
     } catch (error) {
 
       //ERROR RESPONSE
       res.status(400).json({
-        status: 400,
         error: error,
-        redirect: false,
       })
       
     }

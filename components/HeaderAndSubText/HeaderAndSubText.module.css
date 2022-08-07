@@ -1,10 +1,28 @@
+.grid{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'header icon'
+    'sub icon'
+  ;
+}
+
 .wrapper{
   padding:var(--p-component);
   border:var(--b-component);
 }
 
-.sub{
-  font-family:var(--roboto);
-  font-size: var(--f-3);
-  color:var(--main-color);
+.header{
+  grid-area:header;
 }
+
+.sub{
+  grid-area:sub;
+}
+
+.icon{
+  grid-area:icon;
+  align-self: center;
+  justify-self: center;
+}
+
