@@ -1,14 +1,5 @@
 .form{
-  position:fixed;
-  top:10%;
-  left:50%;
-  transform: translate(-50%, 0);
-  z-index: var(--z-form);
-  background-color: var(--white);
   display: grid;
-  width: 85%;
-  border-radius: var(--br-1);
-  padding:var(--p-3);
   grid-template-areas:
     'header header'
     'error error'

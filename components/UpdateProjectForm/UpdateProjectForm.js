@@ -34,7 +34,6 @@ export default function UpdateProjectForm({
     }
   }
 
-  if (active) {
     return (
       <form className={styles.form} onSubmit={form.handleSubmit((data)=>{onSubmit(data)})}>
         <H2 text={`Update ${project.name}`} className={styles.header} />
@@ -45,10 +44,5 @@ export default function UpdateProjectForm({
         <Button onClick={onCancel} type={'button'} text={'Cancel'} bg={'var(--main-color)'} className={styles.cancel} />
       </form>
     )
-  } else {
-    return (
-      null
-    )
-  }
 
 }

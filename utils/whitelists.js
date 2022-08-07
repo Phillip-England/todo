@@ -17,3 +17,6 @@ export const usernameWhitelist = lowercase.concat(uppercase).concat(numbers).con
 export const projectNameWhitelist = lowercase.concat(uppercase).concat(numbers).concat(projectNameSymbols)
 export const textAreaWhitelist = lowercase.concat(uppercase).concat(numbers).concat(textAreaSymbols)
 export const mainRouteWhitelist = lowercase.concat(uppercase).concat(numbers).concat(mainRouteSymbols)
+
+
+export const basicTextWhitelist = lowercase.concat(uppercase).concat(numbers).concat([' ','.','?','!',',','\'','"',';',':','-','_','@','#','$','%','*'])

@@ -1,0 +1,36 @@
+.form{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'header header'
+    'error error'
+    'input input'
+    'submit cancel'
+  ;
+}
+
+.header{
+  grid-area:header;
+  margin-bottom:var(--m-2);
+}
+
+.error{
+  grid-area:error;
+}
+
+.input{
+  grid-area:input;
+  margin-bottom: var(--m-2);
+}
+
+.submit{
+  grid-area: submit;
+  margin-right:var(--m-1);
+  margin-left: var(--m-3);
+}
+
+.cancel{
+  grid-area:cancel;
+  margin-right:var(--m-3);
+  margin-left: var(--m-1);
+}

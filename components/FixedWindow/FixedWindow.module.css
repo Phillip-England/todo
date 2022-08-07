@@ -1,0 +1,9 @@
+.wrapper{
+  position: fixed;
+  transform: translate(-50%, 0);
+  background-color: var(--white);
+  z-index: var(--z-form);
+  border-radius: var(--br-2);
+  width:80%;
+  padding: var(--p-3);
+}
