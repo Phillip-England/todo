@@ -1,15 +1,17 @@
 import styles from './ProjectNoteItem.module.css'
-import P2 from '../P2/P2'
+import P3 from '../P3/P3'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faSquare } from '@fortawesome/free-solid-svg-icons'
+import { faSquareXmark, faSquare } from '@fortawesome/free-solid-svg-icons'
 
 export default function ProjectNoteItem({
   note,
+  onClick,
 }) {
+
   return (
     <li className={styles.wrapper}>
-      <P2 text={note.note} />
-      <FontAwesomeIcon icon={faSquare} className={styles.icon} />
+      <P3 text={note.note} />
+      <FontAwesomeIcon icon={faSquareXmark} className={styles.icon} onClick={onClick} />
     </li>
   )
 }

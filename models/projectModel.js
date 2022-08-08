@@ -1,14 +1,6 @@
 import mongoose, { Schema, model, models} from 'mongoose'
 
-const noteSchema = new Schema({
-  note: {
-    type: String
-  },
-  project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Project'
-  }
-})
+import { projectNoteSchema } from './projectNoteModel'
 
 const projectSchema = new Schema({
   user: {
@@ -22,7 +14,7 @@ const projectSchema = new Schema({
     type: String,
   },
   notes: {
-    type: [noteSchema],
+    type: [projectNoteSchema],
   }
 })
 

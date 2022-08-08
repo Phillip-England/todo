@@ -1,23 +1,33 @@
-import styles from '../../styles/App.module.css'
 import authUser from '../../utils/authUser'
+
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons'
+
 import Project from '../../models/projectModel'
 
+import styles from '../../styles/App.module.css'
 import MainLayout from '../../components/MainLayout/MainLayout'
 import CreateProjectForm from '../../components/CreateProjectForm/CreateProjectForm'
 import ProjectList from '../../components/ProjectList/ProjectList'
-import { useState } from 'react'
+import FixedButton from '../../components/FixedButton/FixedButton'
+import Link from 'next/link'
 
 export default function Home({
   user, 
   projectsData
 }) {
 
+  const router = useRouter()
   const [projects, setProjects] = useState(projectsData)
 
   return(
     <main styles={styles.container}>
       <CreateProjectForm user={user} setProjects={setProjects} />
       <ProjectList projects={projects} />
+      <Link href={"/app/logout"}>
+        <FixedButton active={true} top={'90%'} left={'50%'} icon={faDoorOpen} bg={'var(--red)'} />    
+      </Link>
     </main>
   )
 }

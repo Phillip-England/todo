@@ -18,14 +18,6 @@ export default function MainRouteForm({
   const mainRouteForm = useForm()
   const router = useRouter()
 
-  //TO HELP FORMAT OUR ROUTES AS YOU TYPE
-  const formatRouteInput = (e) => {
-    //ALWAYS OVERWRITE POSITION '0' with '/'
-    if (e.target.value[0] !== '/') {
-      e.target.value = `/${e.target.value}`
-    }
-  }
-
   //WHEN WE POST OUR MAIN ROUTE FORM
   const onRouteFormSubmit = async (data) => {
     data.projectId = router.query.id
@@ -46,10 +38,9 @@ export default function MainRouteForm({
       <H2 text={'Add a Main Route'} className={styles.header} />
       <ErrorMessage message={mainRouteFormError} />
       <TextInput
-        placeholder={'Main route name (ex. "/user" or "/invoice/:id")'}
+        placeholder={'Main Route Name'}
         className={styles.input}
         register={mainRouteForm.register('name')}
-        onInput={(e)=>{formatRouteInput(e)}}
       />
       <Button
         text={'Create'}

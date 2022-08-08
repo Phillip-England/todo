@@ -1,9 +1,6 @@
 import connectMongo from "../../../utils/connectMongo"
-import validator from "validator"
-import stringMax from "../../../utils/stringMax"
-import stringMin from '../../../utils/stringMin'
-import stringRepeat from "../../../utils/stringRepeat"
-import { mainRouteWhitelist } from "../../../utils/whitelists"
+import { redditNameWhitelist } from "../../../utils/whitelists"
+import validateData from '../../../utils/validateData'
 import MainRoute from '../../../models/mainRouteModel'
 import Project from "../../../models/projectModel"
 
@@ -11,43 +8,36 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
 
-      //DB CONNECTION
       await connectMongo()
-
-      //GETTING DATA
       let data = JSON.parse(req.body)
       let { name, projectId } = data
 
-      //WE ALWAYS WANT A LOWERCASE ROUTE NAME
-      name = name.toLowerCase()
+      // const del = await MainRoute.deleteMany({})
 
-      //GETTING THE PROJECT USING THE PROJECTID PASSED IN
       const project = await Project.find({_id:projectId})
-
-      //MAKING SURE WE DO NOT HAVE A DUPLICATE ROUTE
       const routeExists = await MainRoute.find({name: name, project: projectId})
-      console.log(routeExists)
       if (routeExists.length > 0) throw 'Cannot have duplicate main routes'
 
-      //VALIDATE THE ROUTES NAME
-      if (name === '') throw 'Main route name required'
-      if (stringMax(name, 32) === false) throw 'Main route name must be 32 characters or less'
-      if (stringMin(name, 2) === false) throw 'Main route must contain 2 or more characters'
-      if (stringRepeat(name, '/', 1) === false) throw 'Main routes can only have one "/" character'
-      if (validator.isWhitelisted(name, mainRouteWhitelist) === false) throw 'Main route name contains illegal characters'
+      let nameValidation = validateData(name, 'Name', {
+        required: true,
+        max: 32,
+        min: 1,
+        whitelist: redditNameWhitelist,
+        trim: true,
+        escape: true,
+        capFirst: true
+      })
 
-      // STORING ROUTE IN DB
+      if (nameValidation.error) throw nameValidation.message
+
       const newMainRoute = await MainRoute.create({
         user: project[0].user,
         project: project[0]._id,
-        name: name,
+        name: nameValidation.data,
       })
 
-      //GETTING ALL MAIN ROUTES
       const mainRoutes = await MainRoute.find({project: project[0]._id}).sort({name:'ascending'})
 
-
-      //JSON RESPONSE
       res.status(200).json({
         status: 200,
         data: mainRoutes,
@@ -55,7 +45,6 @@ export default async function handler(req, res) {
 
     } catch (error) {
 
-      //ERROR RESPONSE
       res.status(200).json({
         status: 200,
         error: error,

@@ -14,6 +14,8 @@ export default async function handler (req, res){
       let data = JSON.parse(req.body)
       let { note, project } = data
 
+      console.log(data)
+
       let validDetails = validateData(note, 'Note', {
         min: 1,
         max: 64,

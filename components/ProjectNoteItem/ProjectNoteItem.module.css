@@ -2,13 +2,13 @@
   list-style: none;
   display:grid;
   grid-template-columns: 4fr 1fr;
-  padding: var(--p-0);
+  padding: var(--p-1);
   border-bottom: dotted var(--gray) 1px;
 }
 
 .icon{
   align-self: center;
   justify-self: end;
-  color:var(--white);
-  border:solid var(--main-color) 1px;
+  color:var(--red);
+  border:solid var(--darkgray) 1px;
 }

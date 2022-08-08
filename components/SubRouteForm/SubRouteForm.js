@@ -10,9 +10,11 @@ import Button from '../Button/Button'
 
 export default function SubRouteForm({
   mainRoute,
+  setSubRoutes,
 }) {
 
   let [errorMessage, setErrorMessage] = useState('')
+
   let form = useForm()
   let router = useRouter()
 
@@ -23,12 +25,12 @@ export default function SubRouteForm({
       body: JSON.stringify(data)
     })
     const res = await req.json()
-    console.log(res)
-  }
+    if (res.error) {
+      setErrorMessage(res.error)
+    } else {
+      setErrorMessage('')
+      setSubRoutes(res.data.subRoutes)
 
-  let onInputClick = (e) => {
-    if (e.target.value === '') {
-      e.target.value = mainRoute[0].name + '/'
     }
   }
 
@@ -36,7 +38,7 @@ export default function SubRouteForm({
     <form onSubmit={form.handleSubmit(onFormSubmit)} className={styles.form}>
       <H2 text={'Add a Sub Route'} className={styles.header} />
       <ErrorMessage message={errorMessage} />
-      <TextInput spellCheck={false} onClick={(e)=>{onInputClick(e)}} register={form.register('name')} className={styles.input} />
+      <TextInput placeholder={'Sub Route Name'} spellCheck={false} register={form.register('name')} className={styles.input} />
       <Button text={'Create'} bg={'var(--main-color)'} />
     </form>
   )

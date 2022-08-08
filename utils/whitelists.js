@@ -20,3 +20,4 @@ export const mainRouteWhitelist = lowercase.concat(uppercase).concat(numbers).co
 
 
 export const basicTextWhitelist = lowercase.concat(uppercase).concat(numbers).concat([' ','.','?','!',',','\'','"',';',':','-','_','@','#','$','%','*'])
+export const redditNameWhitelist = lowercase.concat(uppercase).concat(numbers).concat('-', '_', ':')

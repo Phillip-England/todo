@@ -60,10 +60,9 @@ export default function validateData(data, name, options) {
     }
   }
 
-  console.log(data.length)
-
   result.error = false
   result.message = ''
+  result.data = data
   return result
 
 }
