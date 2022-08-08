@@ -1,0 +1,7 @@
+.wrapper{
+  z-index: var(--z-form);
+}
+
+.header{
+  margin-bottom: var(--m-1);
+}

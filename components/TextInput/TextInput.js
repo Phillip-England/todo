@@ -9,11 +9,12 @@ export default function TextInput({
   onBlur,
   spellCheck,
   defaultValue,
+  value,
 }) {
 
 
 
   return(
-    <input defaultValue={defaultValue} spellCheck={spellCheck} onBlur={onBlur} onClick={onClick} placeholder={placeholder} className={`${styles.input} ${className}`} {...register} onInput={onInput} />
+    <input value={value} defaultValue={defaultValue} spellCheck={spellCheck} onBlur={onBlur} onClick={onClick} placeholder={placeholder} className={`${styles.input} ${className}`} {...register} onInput={onInput} />
   )
 }

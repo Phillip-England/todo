@@ -1,4 +1,5 @@
 import validator from "validator"
+import capFirstLetter from './capFirstLetter'
 
 export default function validateData(data, name, options) {
 
@@ -13,6 +14,7 @@ export default function validateData(data, name, options) {
   let whitelist = options.whitelist || false
   let trim = options.trim || false
   let escape = options.escape || false
+  let capFirst = options.capFirst || false
 
   if (required) {
     if (data === '') {
@@ -28,6 +30,10 @@ export default function validateData(data, name, options) {
 
   if (escape) {
     data = validator.escape(data)
+  }
+
+  if (capFirstLetter) {
+    data = capFirstLetter(data)
   }
 
   if (whitelist) {

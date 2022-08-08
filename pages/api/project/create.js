@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     try {
 
       await connectMongo()
-  
+
       let data = JSON.parse(req.body)
       let {user, name, vision} = data
 

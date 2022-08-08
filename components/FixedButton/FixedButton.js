@@ -8,6 +8,7 @@ export default function FixedButton({
   left,
   icon,
   bg,
+  text,
 }) {
 
   let jss = {

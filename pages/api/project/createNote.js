@@ -20,6 +20,7 @@ export default async function handler (req, res){
         trim: true,
         escape: true,
         whitelist: basicTextWhitelist,
+        capFirst: true,
       })
 
       if (validDetails.error) throw validDetails.message

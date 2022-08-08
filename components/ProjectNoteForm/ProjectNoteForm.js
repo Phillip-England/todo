@@ -1,3 +1,5 @@
+import sortArrayOfObjects from '../../utils/sortArrayOfObjects'
+
 import styles from './ProjectNoteForm.module.css'
 import H2 from '../H2/H2'
 import TextInput from '../TextInput/TextInput'
@@ -13,10 +15,12 @@ export default function ProjectNoteForm({
   project,
   setProject,
   toggleProjectNoteForm,
+  setProjectNotes
 }) {
 
   const form = useForm()
   const [error, setError] = useState(false)
+  const [noteInputValue, setNoteInputValue] = useState('')
 
   const onSubmit = async (data) => {
     data.project = project
@@ -26,11 +30,14 @@ export default function ProjectNoteForm({
     })
     const res = await req.json()
     if (res.error) {
+      console.log(res.error)
       setError(res.error)
     } else {
       setError('')
       setProject(res.data)
-      toggleProjectNoteForm()
+      setProjectNotes(sortArrayOfObjects(res.data.notes, 'note'))
+      setNoteInputValue('')
+      // toggleProjectNoteForm()
     }
   }
 
@@ -38,9 +45,9 @@ export default function ProjectNoteForm({
     <form className={styles.form} onSubmit={form.handleSubmit((data)=>{onSubmit(data)})}>
       <H2 text={'Create A Note'} className={styles.header} />
       <ErrorMessage message={error} className={styles.error} />
-      <TextInput placeholder={'Whatcha Thinkin?'} register={form.register('note')} className={styles.input} />
+      <TextInput onInput={(e)=>{setNoteInputValue(e.target.value)}} value={noteInputValue} placeholder={'Whatcha Thinkin?'} register={form.register('note')} className={styles.input} />
       <Button text={'Create'} bg={'var(--main-color)'} className={styles.submit} />
-      <Button text={'Cancel'} bg={'var(--main-color)'} className={styles.cancel} type={'button'} onClick={onCancel} />
+      <Button text={'Exit'} bg={'var(--red)'} className={styles.cancel} type={'button'} onClick={onCancel} />
     </form>
   )
 }

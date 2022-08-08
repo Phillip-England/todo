@@ -4,6 +4,8 @@ import { faPen, faPlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Project from '../../../models/projectModel'
 import MainRoute from '../../../models/mainRouteModel'
 
+import sortArrayOfObjects from '../../../utils/sortArrayOfObjects'
+
 import styles from './[id].module.css'
 import MainLayout from '../../../components/MainLayout/MainLayout'
 import HeaderAndSubText from "../../../components/HeaderAndSubText/HeaderAndSubText"
@@ -14,6 +16,7 @@ import UpdateProjectForm from '../../../components/UpdateProjectForm/UpdateProje
 import FixedButton from '../../../components/FixedButton/FixedButton'
 import ProjectNoteForm from '../../../components/ProjectNoteForm/ProjectNoteForm'
 import FixedWindow from '../../../components/FixedWindow/FixedWindow'
+import ProjectNoteList from '../../../components/ProjectNoteList/ProjectNoteList'
 
 export default function ProjectPage({
   projectData,
@@ -21,10 +24,12 @@ export default function ProjectPage({
 }) {
 
     const [project, setProject] = useState(projectData)
+    const [projectNotes, setProjectNotes] = useState(sortArrayOfObjects(project.notes, 'note'))
     const [mainRoutes, setMainRoutes] = useState(mainRoutesData)
     const [overLay, setOverlay] = useState(false)
     const [updateProjectForm, setUpdateProjectForm] = useState(false)
     const [projectNoteForm, setProjectNoteForm] = useState(false)
+    const [projectNoteList, setProjectNoteList] = useState(false)
 
     const toggleUpdateProjectForm = () => {
       setOverlay(!overLay)
@@ -34,23 +39,20 @@ export default function ProjectPage({
     const toggleProjectNoteForm = () => {
       setOverlay(!overLay)
       setProjectNoteForm(!projectNoteForm)
+      setProjectNoteList(!projectNoteList)
     }
 
   return(
     <main>
-
       <Overlay active={overLay} />
-      <FixedWindow component={<ProjectNoteForm toggleProjectNoteForm={toggleProjectNoteForm} setProject={setProject} project={project} onCancel={()=>{toggleProjectNoteForm()}} />} active={projectNoteForm} top={'10%'} left={'50%'} />
+      <FixedWindow component={<ProjectNoteForm setProjectNotes={setProjectNotes} toggleProjectNoteForm={toggleProjectNoteForm} setProject={setProject} project={project} onCancel={()=>{toggleProjectNoteForm()}} />} active={projectNoteForm} top={'10%'} left={'50%'} />
       <FixedWindow component={<UpdateProjectForm project={project} setProject={setProject} toggleUpdateProjectForm={toggleUpdateProjectForm} onCancel={()=>{toggleUpdateProjectForm()}} />} active={updateProjectForm} top={'10%'} left={'50%'} />
-
-
-
-      
+      <FixedWindow component={<ProjectNoteList project={project} projectNotes={projectNotes} />} top={'30%'} left={'50%'} active={projectNoteList} />
       <HeaderAndSubText headerText={project.name} subText={project.vision} icon={faPen} onClick={()=>{toggleUpdateProjectForm()}} />
       <MainRouteForm mainRoutes={mainRoutes} setMainRoutes={setMainRoutes} />
       <MainRouteList mainRoutes={mainRoutes} />
-      <FixedButton active={true} top={'90%'} left={'30%'} icon={faArrowLeft} />
-      <FixedButton onClick={toggleProjectNoteForm} active={true} top={'90%'} left={'70%'} icon={faPlus} />
+      <FixedButton active={true} top={'90%'} left={'30%'} icon={faArrowLeft} bg={'var(--red)'} />
+      <FixedButton onClick={toggleProjectNoteForm} active={true} top={'90%'} left={'70%'} icon={faPlus} text={projectNotes} />
     </main>
 
 

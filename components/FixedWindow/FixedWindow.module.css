@@ -6,4 +6,5 @@
   border-radius: var(--br-2);
   width:80%;
   padding: var(--p-3);
+  border:solid var(--darkgray) 1px;
 }
