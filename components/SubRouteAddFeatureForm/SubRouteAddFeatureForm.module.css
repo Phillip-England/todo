@@ -1,0 +1,50 @@
+.form{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'header header'
+    'subhead subhead'
+    'error error'
+    'nameInput nameInput'
+    'descriptionInput descriptionInput'
+    'submit cancel'
+  ;
+}
+
+.header{
+ grid-area: header;
+}
+
+.subhead{
+ grid-area: subhead;
+ margin-bottom:var(--m-1);
+}
+
+.error{
+ grid-area: error;  
+}
+
+.input{
+ /* grid-area: input; */
+}
+
+.nameInput{
+  grid-area: nameInput;
+  margin-bottom: var(--m-1);
+}
+
+.descriptionInput{
+  grid-area:descriptionInput;
+}
+
+.submit{
+  grid-area: submit;
+  background-color: var(--main-color);
+  margin: var(--m-2);
+}
+
+.cancel{
+  grid-area:cancel;
+  background-color: var(--red);
+  margin: var(--m-2);
+}

@@ -14,6 +14,7 @@ export default function SubRouteForm({
 }) {
 
   let [errorMessage, setErrorMessage] = useState('')
+  let [inputValue, setInputValue] = useState('')
 
   let form = useForm()
   let router = useRouter()
@@ -31,15 +32,19 @@ export default function SubRouteForm({
       setErrorMessage('')
       res.data.subRoutes = sortArrayOfObjects(res.data.subRoutes, 'name')
       setMainRoute(res.data)
-
+      setInputValue('')
     }
+  }
+
+  const onInput = (e) => {
+    setInputValue(e.target.value)
   }
 
   return (
     <form onSubmit={form.handleSubmit(onFormSubmit)} className={styles.form}>
       <H2 text={'Add a Sub Route'} className={styles.header} />
       <ErrorMessage message={errorMessage} />
-      <TextInput placeholder={'Sub Route Name'} spellCheck={false} register={form.register('name')} className={styles.input} />
+      <TextInput onInput={(e)=>{onInput(e)}} placeholder={'Sub Route Name'} value={inputValue} spellCheck={false} register={form.register('name')} className={styles.input} />
       <Button text={'Create'} bg={'var(--main-color)'} />
     </form>
   )

@@ -1,15 +1,16 @@
 import styles from './SubRouteList.module.css'
-import H4 from '../H4/H4'
+import SubRouteListItem from '../SubRouteListItem/SubRouteListItem'
 
 export default function SubRouteList({
   mainRoute,
+  toggleAddFeatureForm,
+  activeSubRoute,
+  setActiveSubRoute,
 }) {
   return (
     <ul className={`${styles.wrapper}`}>
       {mainRoute.subRoutes.map((subRoute) => 
-        <li key={subRoute._id} >
-          <H4 text={subRoute.name} />
-        </li>     
+        <SubRouteListItem key={subRoute._id} setActiveSubRoute={setActiveSubRoute} activeSubRoute={activeSubRoute} subRoute={subRoute} mainRoute={mainRoute} toggleAddFeatureForm={toggleAddFeatureForm} />
       )}
 
     </ul>

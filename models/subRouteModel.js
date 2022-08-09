@@ -1,21 +1,17 @@
 import mongoose, { Schema, model, models} from 'mongoose'
+import { featureSchema } from './featureModel'
 
 export const subRouteSchema = new Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  project: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Project'
+  name: {
+    type: String
   },
   mainRoute: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'MainRoute'
   },
-  name: {
-    type: String,
-  },
+  features: {
+    type: [featureSchema],
+  }
 })
 
 const SubRoute = models.SubRoute || model('SubRoute', subRouteSchema)

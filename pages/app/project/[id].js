@@ -67,7 +67,7 @@ export default function ProjectPage({
 
 ProjectPage.getLayout = function getLayout(page) {
   return (
-    <MainLayout page={page} navText={'Create Your Main Routes'} />
+    <MainLayout page={page} navText={'Project Information'} />
   )
 }
 

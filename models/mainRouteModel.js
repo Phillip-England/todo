@@ -1,14 +1,5 @@
 import mongoose, { Schema, model, models} from 'mongoose'
-
-const subRouteSchema = new Schema({
-  name: {
-    type: String
-  },
-  mainRoute: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'MainRoute'
-  }
-})
+import { subRouteSchema } from './subRouteModel'
 
 const mainRouteSchema = new Schema({
   user: {
