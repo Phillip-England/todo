@@ -1,5 +1,6 @@
 import styles from './FixedButton.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
 
 export default function FixedButton({
   active,
@@ -9,6 +10,7 @@ export default function FixedButton({
   icon,
   bg,
   text,
+  href,
 }) {
 
   let jss = {
@@ -18,11 +20,33 @@ export default function FixedButton({
   }
 
   if (active) {
-    return (
-      <button onClick={onClick} className={styles.button} style={jss}>
-        <FontAwesomeIcon icon={icon} />
-      </button>
-    )
+
+    if (href) {
+
+      return (
+        <Link href={href}>
+          <button onClick={onClick} className={styles.button} style={jss}>
+            <FontAwesomeIcon icon={icon} />
+          </button>
+        </Link>
+      )
+
+    } else {
+
+      return (
+        <button onClick={onClick} className={styles.button} style={jss}>
+          <FontAwesomeIcon icon={icon} />
+        </button>
+      )
+
+    }
+
+
+
+
+
+
+
   } {
     return null
   }

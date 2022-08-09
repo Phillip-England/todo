@@ -11,7 +11,7 @@ import SubRouteList from '../../../components/SubRouteList/SubRouteList'
 import FixedButton from '../../../components/FixedButton/FixedButton'
 import Overlay from '../../../components/Overlay/Overlay'
 import FixedWindow from '../../../components/FixedWindow/FixedWindow'
-import UpdateSubRouteForm from '../../../components/UpdateSubRouteForm/UpdateSubRouteForm'
+import UpdateMainRouteForm from '../../../components/UpdateMainRouteForm/UpdateMainRouteForm'
 
 import sortArrayOfObjects from '../../../utils/sortArrayOfObjects'
 
@@ -21,12 +21,11 @@ export default function MainRoutePage({
 }) {
 
   const router = useRouter()
-  const [mainRoute, setMainRoute] = useState(mainRouteData)
-  const [subRoutes, setSubRoutes] = useState(sortArrayOfObjects(mainRoute[0].subRoutes, 'name'))
+  const [mainRoute, setMainRoute] = useState(mainRouteData[0])
   const [overlay, setOverlay] = useState(false)
   const [updateForm, setUpdateForm] = useState(false)
 
-  const toggleSubRouteUpdateForm = () => {
+  const toggleMainRouteUpdateForm = () => {
     setOverlay(!overlay)
     setUpdateForm(!updateForm)
   }
@@ -34,11 +33,10 @@ export default function MainRoutePage({
   return (
     <main>
       <Overlay active={overlay} />
-      <FixedWindow component={<UpdateSubRouteForm onCancel={()=>{toggleSubRouteUpdateForm()}} />} top={'10%'} left={'50%'} active={updateForm} />
-
-      <HeaderAndSubText headerText={mainRoute[0].name} icon={faPen} onClick={()=>{toggleSubRouteUpdateForm()}} />
-      <SubRouteForm setSubRoutes={setSubRoutes} mainRoute={mainRoute} />
-      <SubRouteList mainRoute={mainRoute} subRoutes={subRoutes} />
+      <FixedWindow component={<UpdateMainRouteForm toggleMainRouteUpdateForm={toggleMainRouteUpdateForm} setMainRoute={setMainRoute} mainRoute={mainRoute} onCancel={()=>{toggleMainRouteUpdateForm()}} />} top={'10%'} left={'50%'} active={updateForm} />
+      <HeaderAndSubText headerText={mainRoute.name} icon={faPen} onClick={()=>{toggleMainRouteUpdateForm()}} />
+      <SubRouteForm setMainRoute={setMainRoute} />
+      <SubRouteList mainRoute={mainRoute} />
       <FixedButton onClick={router.back} active={true} top={'90%'} left={'50%'} icon={faArrowLeft} bg={'var(--red)'} />
     </main>
   )
@@ -53,6 +51,8 @@ MainRoutePage.getLayout = function getLayout(page) {
 export async function getServerSideProps(context) {
   let mainRouteId = context.params.id
   const mainRouteData = await MainRoute.find({_id: mainRouteId})
+  mainRouteData[0].subRoutes = sortArrayOfObjects(mainRouteData[0].subRoutes, 'name')
+
   return({
     props: {
       mainRouteData: JSON.parse(JSON.stringify(mainRouteData))

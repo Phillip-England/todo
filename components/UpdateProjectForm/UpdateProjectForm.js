@@ -38,8 +38,8 @@ export default function UpdateProjectForm({
       <form className={styles.form} onSubmit={form.handleSubmit((data)=>{onSubmit(data)})}>
         <H2 text={`Update ${project.name}`} className={styles.header} />
         <ErrorMessage className={styles.error} message={error} />
-        <TextInput placeholder={'Project Name'} register={form.register('name')} defaultValue={project.name} className={styles.nameInput} />
-        <TextInput placeholder={'Vision Name'} register={form.register('vision')} defaultValue={project.vision} className={styles.visionInput} />
+        <TextInput placeholder={project.name} register={form.register('name')} defaultValue={project.name} className={styles.nameInput} />
+        <TextInput placeholder={project.vision} register={form.register('vision')} defaultValue={project.vision} className={styles.visionInput} />
         <Button text={'Submit'} bg={'var(--main-color)'} className={styles.submit} />
         <Button onClick={onCancel} type={'button'} text={'Cancel'} bg={'var(--main-color)'} className={styles.cancel} />
       </form>

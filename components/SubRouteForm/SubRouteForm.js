@@ -7,10 +7,10 @@ import H2 from '../H2/H2'
 import TextInput from '../TextInput/TextInput'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import Button from '../Button/Button'
+import sortArrayOfObjects from '../../utils/sortArrayOfObjects'
 
 export default function SubRouteForm({
-  mainRoute,
-  setSubRoutes,
+  setMainRoute,
 }) {
 
   let [errorMessage, setErrorMessage] = useState('')
@@ -20,7 +20,7 @@ export default function SubRouteForm({
 
   let onFormSubmit = async (data) => {
     data.mainRouteId = router.query.id
-    const req = await fetch('/api/subroute/create', {
+    const req = await fetch('/api/mainroute/createSubRoute', {
       method: 'POST',
       body: JSON.stringify(data)
     })
@@ -29,7 +29,8 @@ export default function SubRouteForm({
       setErrorMessage(res.error)
     } else {
       setErrorMessage('')
-      setSubRoutes(res.data.subRoutes)
+      res.data.subRoutes = sortArrayOfObjects(res.data.subRoutes, 'name')
+      setMainRoute(res.data)
 
     }
   }

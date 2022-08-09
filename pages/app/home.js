@@ -25,9 +25,7 @@ export default function Home({
     <main styles={styles.container}>
       <CreateProjectForm user={user} setProjects={setProjects} />
       <ProjectList projects={projects} />
-      <Link href={"/app/logout"}>
-        <FixedButton active={true} top={'90%'} left={'50%'} icon={faDoorOpen} bg={'var(--red)'} />    
-      </Link>
+      <FixedButton active={true} top={'90%'} left={'50%'} icon={faDoorOpen} bg={'var(--red)'} href={'/app/logout'} />    
     </main>
   )
 }

@@ -29,7 +29,7 @@ export default async function handler(req, res) {
         if (mainRoute.subRoutes[x].name === validatedName.data) throw 'Cannot have duplicate routes'
       }
 
-      const updatedMainRoute = await MainRoute.findByIdAndUpdate(mainRouteId, { $push: { 'subRoutes': { "name": name, 'mainRoute': mainRouteId } } }, {new: true})
+      const updatedMainRoute = await MainRoute.findByIdAndUpdate(mainRouteId, { $push: { 'subRoutes': { "name": validatedName.data, 'mainRoute': mainRouteId } } }, {new: true})
 
       // const dele = await MainRoute.deleteMany({})
 
