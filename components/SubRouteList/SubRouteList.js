@@ -10,7 +10,7 @@ export default function SubRouteList({
   return (
     <ul className={`${styles.wrapper}`}>
       {mainRoute.subRoutes.map((subRoute) => 
-        <SubRouteListItem key={subRoute._id} setActiveSubRoute={setActiveSubRoute} activeSubRoute={activeSubRoute} subRoute={subRoute} mainRoute={mainRoute} toggleAddFeatureForm={toggleAddFeatureForm} />
+        <SubRouteListItem className={styles.listItem} key={subRoute._id} setActiveSubRoute={setActiveSubRoute} activeSubRoute={activeSubRoute} subRoute={subRoute} mainRoute={mainRoute} toggleAddFeatureForm={toggleAddFeatureForm} />
       )}
 
     </ul>

@@ -1,0 +1,10 @@
+.wrapper{
+  /* background-color: var(--lightgray); */
+  padding:var(--p-1);
+  margin-bottom: var(--m-1);
+  border-bottom: dotted var(--gray) 1px;
+}
+
+.header{
+  color:var(--main-color);
+}

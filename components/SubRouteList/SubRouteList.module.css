@@ -5,7 +5,7 @@
   list-style: none;
 }
 
-.wrapper li {
+.listItem{
   border:solid var(--gray) 1px;
   margin-bottom:var(--m-1);
   padding:var(--p-3);
